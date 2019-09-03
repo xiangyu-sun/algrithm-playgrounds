@@ -15,23 +15,38 @@ func find3Sum(_ array: [Int]) -> [[Int]] {
     return Array(result)
 }
 
-func find3Sum1(_ array: [Int]) -> [[Int]] {
-    var array = array.sorted()
+func find3SumTwoPointers(_ array: [Int]) -> [[Int]] {
+    
+    //
+    let sortedArray = array.sorted()
+    
     var result = [[Int]]()
+    
     var a: Int,b: Int, c: Int
     var start: Int, end: Int
-    for (index, i) in array.enumerated() {
-        guard index <= array.count - 2 else { break }
+    for (index, i) in sortedArray.enumerated() {
         
+        // at least = 2 for start to be = to last element
+        guard index <= sortedArray.count - 2 else { break }
+        
+        // current element of iteration
         a = i
-        start = index + 1
-        end = array.count - 1
         
+        // b will be current round of iteration index + 1
+        start = index + 1
+        // c will be the last element
+        end = sortedArray.count - 1
+        
+        // 1. when start == end finish the iteration , start = max - 2
+        // 2. sum > 0 means end element is too big, move end forward
+        // 3. sum < 0 means start element is too small, move start forward
+        // 4. continue if find one =0, until they meet
         while start < end {
-            b = array[start]
-            c = array[end]
+            b = sortedArray[start]
+            c = sortedArray[end]
             
             let sum = a + b + c
+            
             if sum == 0 {
                 result.append([a,b,c])
                 start += 1
@@ -47,4 +62,4 @@ func find3Sum1(_ array: [Int]) -> [[Int]] {
 }
 
 find3Sum([-1,0,1,2,-1,-4])
-find3Sum1([-1,0,1,2,-1,-4])
+find3SumTwoPointers([-1,0,1,2,-1,-4])
