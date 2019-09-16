@@ -7,8 +7,8 @@ func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
     var lookup = [Int : Int]()
     for (offset,element) in nums.enumerated() {
         
-        let tar = target - element
-        if let pair = lookup[tar], pair != offset {
+        let conter = target - element
+        if let pair = lookup[conter], pair != offset {
             result.append(pair)
             result.append(offset)
             break
@@ -30,8 +30,10 @@ func twoSumTwoPointer(_ numbers: [Int], _ target: Int) -> [Int] {
         let sum = numbers[start] + numbers[end]
         
         if sum == target {
-            result.append(start + 1)
-            result.append(end + 1)
+            result.append(start)
+            result.append(end)
+            start += 1
+            end -= 1
         } else if sum < target {
             start += 1
         } else {
