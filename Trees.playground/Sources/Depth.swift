@@ -2,11 +2,14 @@ import Foundation
 
 
 public extension Optional where Wrapped == TreeNode {
+    
+    //return 1 as current depth
     var minDepth: Int {
         guard let node = self else {
             return 0
         }
         
+        // both empty
         guard node.left != nil || node.right != nil else { return 1 }
         
         if node.left == nil {
@@ -17,6 +20,7 @@ public extension Optional where Wrapped == TreeNode {
             return node.left.minDepth + 1
         }
         
+        // min of left for right children
         return min(node.left.minDepth, node.right.minDepth) + 1
     }
     
@@ -38,10 +42,4 @@ public extension Optional where Wrapped == TreeNode {
         return max(node.left.maxDepth , node.right.maxDepth) + 1
     }
 
-}
-
-extension Optional where Wrapped == Int {
-    static func + (lhs: Int?, rhs: Int) -> Int {
-        return (lhs ?? 0) + rhs
-    }
 }

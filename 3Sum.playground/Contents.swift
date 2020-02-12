@@ -1,8 +1,22 @@
+/*:
+
+****
+# Thre sum
+
+Find three different element in one array sums to 0
+
+*/
+
 import Foundation
 
 
+/// brutal force
+/// - Parameter array:
+
 func find3Sum(_ array: [Int]) -> [[Int]] {
     var result = Set<[Int]>()
+    
+    // i j k needs to be different
     for (iindex, i) in array.enumerated() {
         for (jindex, j) in array.enumerated() where jindex != iindex {
             for (kindex, k) in array.enumerated() where kindex != jindex && kindex != iindex {
@@ -14,27 +28,34 @@ func find3Sum(_ array: [Int]) -> [[Int]] {
     }
     return Array(result)
 }
+find3Sum([-1,0,1,2,-1,-4])
 
+
+
+/// two pointer use a sort to optmize algrithm, 
+/// - Parameter array:
 func find3SumTwoPointers(_ array: [Int]) -> [[Int]] {
     
-    //
     let sortedArray = array.sorted()
     
     var result = [[Int]]()
     
     var a: Int,b: Int, c: Int
+    
     var start: Int, end: Int
+    
+    /// performing two pointer exluding a
     for (index, i) in sortedArray.enumerated() {
         
-        // at least = 2 for start to be = to last element
+        // exluded a array end index becoming count - 2
         guard index <= sortedArray.count - 2 else { break }
         
-        // current element of iteration
         a = i
         
-        // b will be current round of iteration index + 1
+        // b
         start = index + 1
-        // c will be the last element
+        
+        //c
         end = sortedArray.count - 1
         
         // 1. when start == end finish the iteration , start = max - 2
@@ -61,5 +82,5 @@ func find3SumTwoPointers(_ array: [Int]) -> [[Int]] {
     return result
 }
 
-find3Sum([-1,0,1,2,-1,-4])
+
 find3SumTwoPointers([-1,0,1,2,-1,-4])
